@@ -769,5 +769,27 @@
   renderLanding();
 })();
 </script>
-<div style="max-width:900px;margin:24px auto;padding:14px 16px;border-radius:12px;background:#f4f7fb;color:#334155;font-size:13px;line-height:1.5">Question bank expanded to 100 questions per unit (600 total). All statements are derived from the uploaded <strong>Ethiopian Grade 10 Physics Student Textbook (2023)</strong>; no outside physics content was added.</div></body>
+<div style="max-width:900px;margin:24px auto;padding:14px 16px;border-radius:12px;background:#f4f7fb;color:#334155;font-size:13px;line-height:1.5">Question bank expanded to 100 questions per unit (600 total). All statements are derived from the uploaded <strong>Ethiopian Grade 10 Physics Student Textbook (2023)</strong>; no outside physics content was added.</div>
+<!-- Telegram Games integration: the share action only runs after an explicit user tap. -->
+<script src="https://telegram.org/js/games.js"></script>
+<script>
+(function () {
+  function addShareButton() {
+    if (!window.TelegramGameProxy || typeof window.TelegramGameProxy.shareScore !== 'function') return;
+    var actions = document.querySelector('.summary-actions');
+    if (!actions || actions.querySelector('.telegram-share-score')) return;
+    var button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'btn-outline telegram-share-score';
+    button.textContent = 'Share score';
+    button.addEventListener('click', function () {
+      window.TelegramGameProxy.shareScore();
+    });
+    actions.appendChild(button);
+  }
+  addShareButton();
+  new MutationObserver(addShareButton).observe(document.body, { childList: true, subtree: true });
+})();
+</script>
+</body>
 </html>

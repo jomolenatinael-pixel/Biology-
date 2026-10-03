@@ -768,5 +768,27 @@
   renderLanding();
 })();
 </script>
+
+<!-- Telegram Games integration: the share action only runs after an explicit user tap. -->
+<script src="https://telegram.org/js/games.js"></script>
+<script>
+(function () {
+  function addShareButton() {
+    if (!window.TelegramGameProxy || typeof window.TelegramGameProxy.shareScore !== 'function') return;
+    var actions = document.querySelector('.summary-actions');
+    if (!actions || actions.querySelector('.telegram-share-score')) return;
+    var button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'btn-outline telegram-share-score';
+    button.textContent = 'Share score';
+    button.addEventListener('click', function () {
+      window.TelegramGameProxy.shareScore();
+    });
+    actions.appendChild(button);
+  }
+  addShareButton();
+  new MutationObserver(addShareButton).observe(document.body, { childList: true, subtree: true });
+})();
+</script>
 </body>
 </html>
