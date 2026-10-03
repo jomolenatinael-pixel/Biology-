@@ -779,7 +779,7 @@
     if (!actions || actions.querySelector('.telegram-share-score')) return;
     var button = document.createElement('button');
     button.type = 'button';
-    button.className = 'btn-outline telegram-share-score';
+    button.className = 'secondary btn-secondary btn-outline telegram-share-score';
     button.textContent = 'Share score';
     button.addEventListener('click', function () {
       window.TelegramGameProxy.shareScore();
