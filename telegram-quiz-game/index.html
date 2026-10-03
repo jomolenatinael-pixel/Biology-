@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#0f8a7e" />
+  <title>Grade 10 Quiz Arena — Telegram Mini App</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    :root {
+      --bg: var(--tg-theme-bg-color, #0b1220);
+      --card: var(--tg-theme-secondary-bg-color, #141c2e);
+      --text: var(--tg-theme-text-color, #f3f6ff);
+      --hint: var(--tg-theme-hint-color, #9aa6c2);
+      --btn: var(--tg-theme-button-color, #0f8a7e);
+      --btn-text: var(--tg-theme-button-text-color, #ffffff);
+      --accent: #0f8a7e;
+      --accent-2: #3b82f6;
+      --accent-3: #a855f7;
+      --accent-4: #f59e0b;
+      --accent-5: #ef4444;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0; padding: 0; min-height: 100%;
+      background: var(--bg); color: var(--text);
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+    body {
+      padding: 16px 14px calc(24px + env(safe-area-inset-bottom));
+      background:
+        radial-gradient(1200px 600px at 10% -10%, rgba(15,138,126,.25), transparent 55%),
+        radial-gradient(900px 500px at 100% 0%, rgba(59,130,246,.18), transparent 50%),
+        var(--bg);
+    }
+    .wrap { max-width: 480px; margin: 0 auto; }
+    .hero {
+      text-align: center; padding: 18px 8px 22px;
+    }
+    .badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+      color: var(--accent); background: rgba(15,138,126,.15);
+      border: 1px solid rgba(15,138,126,.35); border-radius: 999px;
+      padding: 5px 10px; margin-bottom: 12px;
+    }
+    h1 {
+      margin: 0 0 8px; font-size: 1.45rem; line-height: 1.2; font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    .sub {
+      margin: 0; color: var(--hint); font-size: .88rem; line-height: 1.45;
+    }
+    .stats {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+      margin: 18px 0 8px;
+    }
+    .stat {
+      background: var(--card); border: 1px solid rgba(255,255,255,.06);
+      border-radius: 14px; padding: 12px 8px; text-align: center;
+    }
+    .stat b { display: block; font-size: 1.15rem; font-weight: 800; }
+    .stat span { font-size: .68rem; color: var(--hint); }
+    .section-title {
+      font-size: .72rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase;
+      color: var(--hint); margin: 18px 4px 10px;
+    }
+    .games { display: flex; flex-direction: column; gap: 10px; }
+    .game {
+      display: flex; align-items: center; gap: 12px; width: 100%;
+      text-align: left; text-decoration: none; color: inherit;
+      background: var(--card); border: 1px solid rgba(255,255,255,.07);
+      border-radius: 16px; padding: 14px 14px; cursor: pointer;
+      box-shadow: 0 8px 24px rgba(0,0,0,.18);
+      transition: transform .12s ease, border-color .12s ease;
+    }
+    .game:active { transform: scale(.985); }
+    .icon {
+      flex: none; width: 48px; height: 48px; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.35rem; font-weight: 800; color: #fff;
+    }
+    .icon.math { background: linear-gradient(135deg, #0f8a7e, #14b8a6); }
+    .icon.physics { background: linear-gradient(135deg, #3b82f6, #6366f1); }
+    .icon.history { background: linear-gradient(135deg, #a855f7, #ec4899); }
+    .icon.econ { background: linear-gradient(135deg, #f59e0b, #f97316); }
+    .icon.chem { background: linear-gradient(135deg, #ef4444, #f43f5e); }
+    .info { flex: 1; min-width: 0; }
+    .info h2 { margin: 0 0 3px; font-size: .95rem; font-weight: 750; }
+    .info p { margin: 0; font-size: .75rem; color: var(--hint); line-height: 1.35; }
+    .chevron { color: var(--hint); font-size: 1.2rem; opacity: .7; }
+    .foot {
+      margin-top: 22px; text-align: center; font-size: .7rem; color: var(--hint); line-height: 1.5;
+    }
+    .play-all {
+      display: block; width: 100%; margin-top: 14px;
+      background: var(--btn); color: var(--btn-text); border: none;
+      border-radius: 14px; padding: 14px 16px; font-weight: 800; font-size: .95rem;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <div class="badge">🎮 Telegram Mini Game</div>
+      <h1>Grade 10 Quiz Arena</h1>
+      <p class="sub">Ethiopian new curriculum practice games — Math, Physics, History, Economics &amp; Chemistry. Instant feedback, scores &amp; review.</p>
+      <div class="stats">
+        <div class="stat"><b>5</b><span>Subjects</span></div>
+        <div class="stat"><b>1000+</b><span>Questions</span></div>
+        <div class="stat"><b>Offline</b><span>In-app play</span></div>
+      </div>
+    </header>
+
+    <div class="section-title">Choose a game</div>
+    <div class="games">
+      <a class="game" href="math.html">
+        <div class="icon math">∑</div>
+        <div class="info">
+          <h2>Mathematics Flashcards</h2>
+          <p>Relations, functions, trig, circles &amp; coordinate geometry</p>
+        </div>
+        <div class="chevron">›</div>
+      </a>
+      <a class="game" href="physics.html">
+        <div class="icon physics">⚡</div>
+        <div class="info">
+          <h2>Physics Challenge</h2>
+          <p>600 textbook questions · vectors to optics</p>
+        </div>
+        <div class="chevron">›</div>
+      </a>
+      <a class="game" href="history.html">
+        <div class="icon history">📜</div>
+        <div class="info">
+          <h2>History Quest</h2>
+          <p>Capitalism, nationalism, Ethiopia &amp; heritage</p>
+        </div>
+        <div class="chevron">›</div>
+      </a>
+      <a class="game" href="economics.html">
+        <div class="icon econ">📈</div>
+        <div class="info">
+          <h2>Economics Arena</h2>
+          <p>Consumer theory, markets, SMEs &amp; innovation</p>
+        </div>
+        <div class="chevron">›</div>
+      </a>
+      <a class="game" href="chemistry.html">
+        <div class="icon chem">🧪</div>
+        <div class="info">
+          <h2>Chemistry Lab Quiz</h2>
+          <p>Stoichiometry, redox, organic chemistry</p>
+        </div>
+        <div class="chevron">›</div>
+      </a>
+    </div>
+
+    <p class="foot">
+      Based on Ethiopian Grade 10 Student Textbooks (new curriculum).<br>
+      Use this URL as a Telegram Bot Mini App / Web App link.
+    </p>
+  </div>
+  <script>
+    (function () {
+      try {
+        var tg = window.Telegram && window.Telegram.WebApp;
+        if (tg) {
+          tg.ready();
+          tg.expand();
+          if (tg.setHeaderColor) tg.setHeaderColor('secondary_bg_color');
+          if (tg.setBackgroundColor) tg.setBackgroundColor('bg_color');
+        }
+      } catch (e) {}
+    })();
+  </script>
+</body>
+</html>
